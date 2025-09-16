@@ -2,38 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
+        stage('Verify') {
             steps {
-                echo 'Cloning repository...'
-                git url: 'https://github.com/jackychuact/webjenkinstest.git', branch: 'main'
+                // This command lists the files to verify they were checked out correctly
+                bat 'dir'
             }
-        }
-
-        stage('Build') {
-            steps {
-                echo 'Running basic validation (optional)...'
-                // e.g., validate HTML or check JS syntax
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application...'
-                // Example: Copy files to a web server directory
-                sh '''
-                    rm -rf /var/www/html/*
-                    cp -r * /var/www/html/
-                '''
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Deployment successful.'
-        }
-        failure {
-            echo 'Deployment failed or passed.'
         }
     }
 }
